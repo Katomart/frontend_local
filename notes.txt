@@ -1,0 +1,16 @@
+Configuração Necessária do Servidor
+O app usa o vue router, então é preciso redirecionar todas as requisições para o index.html, exceto para recursos estáticos.
+
+Exemplo de config:
+Apache htaccess:
+RewriteEngine On
+RewriteBase /
+RewriteRule ^index\.html$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /index.html [L]
+
+Nginx:
+location / {
+  try_files $uri $uri/ /index.html;
+}
