@@ -1,24 +1,9 @@
-# frontend
+# FE Local
 
-## Project setup
-```
-npm install
-```
+Este projeto possui a source do frontend gratuito para o Katomart.  
+O frontend original foi removido.
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
+## Compile e coloque a pasta /dist/ dentro da /servidor/
 ```
 npm run build
 ```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
