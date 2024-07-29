@@ -20,7 +20,7 @@
                         :items="['true', 'false']"
                         v-model="config.value"
                         :disabled="!config.editable"
-                        @change="() => handleSelectChange(config)"
+                        @update:modelValue="() => handleSelectChange(config)"
                         label="Escolha"
                       ></v-select>
                     </template>
