@@ -52,9 +52,6 @@
                 <v-list-item-subtitle v-if="config.description">
                   {{ config.description }}
                 </v-list-item-subtitle>
-                <v-list-item-subtitle v-if="config.voidable">
-                  (Pode ser anulado)
-                </v-list-item-subtitle>
               </v-list-item-content>
             </v-list-item>
           </v-list>
