@@ -14,6 +14,9 @@
                   <v-row>
                     <v-col>
                       <span>{{ config.title }} <span style="color:magenta">(chave: {{ config.key }})</span>: </span>
+                      <v-list-item-subtitle v-if="config.description">
+                        {{ config.description }}
+                      </v-list-item-subtitle>
                       <template v-if="config.value_type === 'bool'">
                         <v-btn
                           :disabled="!config.editable" @click="handleToggleButton(config)"
@@ -49,9 +52,6 @@
                     </v-col>
                   </v-row>
                 </v-list-item-title>
-                <v-list-item-subtitle v-if="config.description">
-                  {{ config.description }}
-                </v-list-item-subtitle>
               </v-list-item-content>
             </v-list-item>
           </v-list>
