@@ -13,7 +13,7 @@
                 <v-list-item-title>
                   <v-row>
                     <v-col>
-                      <span>{{ config.key }}: </span>
+                      <span>{{ config.title }} <span style="color:magenta">(chave: {{ config.key }})</span>: </span>
                       <template v-if="config.value_type === 'bool'">
                         <v-btn
                           :disabled="!config.editable" @click="handleToggleButton(config)"
