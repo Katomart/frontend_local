@@ -6,7 +6,7 @@
       </v-col>
       <v-expansion-panels cols="12" v-for="(configs, groupName) in groupedConfigurations" :key="groupName">
         <v-expansion-panel class="mb-4">
-          <v-expansion-panel-title><h3>{{ groupName != 'undefined' ? groupName : 'Configuração de caminho' }}</h3></v-expansion-panel-title>
+          <v-expansion-panel-title class="text-subtitle-1">{{ groupName != 'undefined' ? groupName : 'Configuração de caminho' }}</v-expansion-panel-title>
           <v-expansion-panel-text>
             <v-list-item v-for="config in configs" :key="config.key">
               <v-list-item-content>
@@ -15,14 +15,12 @@
                     <v-col>
                       <span>{{ config.key }}: </span>
                       <template v-if="config.value_type === 'bool'">
-                        <v-btn
-                          :style="{ 
-                          'color': config.value ? '#332f2f' : '#d4c7c7',
-                          'background-color': config.value ? '#38ff49' : '#ed1818',
-                          'border-style': 'solid',
-                          'border-width': '1px',
-                          'border-color': 'black',
-                          }"
+                        <v-btn v-if="config.value" flat size="small" rounded="xl" color="success"
+                          :disabled="!config.editable" @click="handleToggleButton(config)"
+                        >
+                          {{ config.value }}
+                        </v-btn>
+                        <v-btn v-else flat size="small" rounded="xl" color="red"
                           :disabled="!config.editable" @click="handleToggleButton(config)"
                         >
                           {{ config.value }}
