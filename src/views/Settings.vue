@@ -4,10 +4,10 @@
       <v-col cols="12">
         <h1>Configurações</h1>
       </v-col>
-      <v-col cols="12" v-for="(configs, groupName) in groupedConfigurations" :key="groupName">
-        <v-card class="mb-4">
-          <v-card-title>{{ groupName }}</v-card-title>
-          <v-list>
+      <v-expansion-panels cols="12" v-for="(configs, groupName) in groupedConfigurations" :key="groupName">
+        <v-expansion-panel class="mb-4">
+          <v-expansion-panel-title><h3>{{ groupName != 'undefined' ? groupName : 'Configuração de caminho' }}</h3></v-expansion-panel-title>
+          <v-expansion-panel-text>
             <v-list-item v-for="config in configs" :key="config.key">
               <v-list-item-content>
                 <v-list-item-title>
@@ -16,6 +16,13 @@
                       <span>{{ config.key }}: </span>
                       <template v-if="config.value_type === 'bool'">
                         <v-btn
+                          :style="{ 
+                          'color': config.value ? '#332f2f' : '#d4c7c7',
+                          'background-color': config.value ? '#38ff49' : '#ed1818',
+                          'border-style': 'solid',
+                          'border-width': '1px',
+                          'border-color': 'black',
+                          }"
                           :disabled="!config.editable" @click="handleToggleButton(config)"
                         >
                           {{ config.value }}
@@ -60,12 +67,18 @@
                 </v-list-item-subtitle>
               </v-list-item-content>
             </v-list-item>
-          </v-list>
-        </v-card>
-      </v-col>
+          </v-expansion-panel-text>
+        </v-expansion-panel>
+      </v-expansion-panels>
     </v-row>
   </v-container>
 </template>
+<script setup>
+  import { ref } from 'vue'
+
+  const panel = ref(0)
+</script>
+
 <script>
 import { mapActions, mapGetters } from 'vuex';
 
@@ -78,10 +91,25 @@ export default {
     },
     groupedConfigurations() {
       return this.filteredConfigurations.reduce((groups, config) => {
-        const group = config.configuration_group_name || ' ';
+         const settings_names = {
+          setup: 'configurações de inicialização',
+          filesystem: 'configurações de salvamento de arquivos',
+          ffmpeg: 'configurações do ffmpeg',
+          download: 'configurações de download',
+          remote: 'configurações de acesso remoto'
+        };
+
+        let group;
+        for (const [key, value] of Object.entries(settings_names)) {
+          if (config.configuration_group_name === key) {
+            group = value || ''
+          }
+        }
+        
         if (!groups[group]) {
           groups[group] = [];
         }
+        
         groups[group].push(config);
         return groups;
       }, {});
@@ -99,3 +127,8 @@ export default {
   }
 }
 </script>
+<style>
+.toggleButton {
+  background-color: v-bind(red);
+}
+</style>
